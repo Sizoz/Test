@@ -3,34 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng ký và Đăng nhập</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Do You Love Me?</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 100px;
+        }
+        .container {
+            position: relative;
+            height: 500px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+        #yes {
+            background-color: #28a745;
+            color: white;
+        }
+        #yes:hover {
+            background-color: #218838;
+        }
+        #no {
+            background-color: #dc3545;
+            color: white;
+            position: absolute;
+        }
+        #no:hover {
+            background-color: #c82333;
+        }
+    </style>
 </head>
 <body>
-<div class="form-container">
-    <h2>Đăng ký</h2>
-    <form id="register-form">
-        <label for="email">Tài khoản (Email):</label>
-        <input type="email" id="email" placeholder="Nhập email" required>
 
-        <label for="password">Mật khẩu:</label>
-        <input type="password" id="password" placeholder="Nhập mật khẩu" required>
-
-        <button type="submit">Đăng ký</button>
-    </form>
-
-    <h2>Đăng nhập</h2>
-    <form id="login-form">
-        <label for="login-email">Tài khoản (Email):</label>
-        <input type="email" id="login-email" placeholder="Nhập email" required>
-
-        <label for="login-password">Mật khẩu:</label>
-        <input type="password" id="login-password" placeholder="Nhập mật khẩu" required>
-
-        <button type="submit">Đăng nhập</button>
-    </form>
+<h1>Bạn có yêu mình không? 🥰</h1>
+<div class="container">
+    <button id="yes" onclick="showLove()">YES ❤️</button>
+    <button id="no" onmouseover="moveNo()">NO ❌</button>
 </div>
 
-<script src="script.js"></script>
+<script>
+    function showLove() {
+        alert("Mình biết mà, bạn cũng yêu mình nhiều lắm! 🥰");
+    }
+
+    function moveNo() {
+        // Lấy chiều rộng và chiều cao của trình duyệt
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+
+        // Tạo vị trí ngẫu nhiên mới cho nút NO
+        const randomX = Math.random() * (windowWidth - 100); // Trừ 100 để nút không bị ra ngoài khung
+        const randomY = Math.random() * (windowHeight - 100);
+
+        // Cập nhật vị trí nút NO
+        const noButton = document.getElementById("no");
+        noButton.style.left = randomX + "px";
+        noButton.style.top = randomY + "px";
+    }
+</script>
+
 </body>
 </html>

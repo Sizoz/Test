@@ -1,67 +1,29 @@
-// Lấy các phần tử form
-const registerForm = document.getElementById('register-form');
-const loginForm = document.getElementById('login-form');
+function calculateDays() {
+    // Lấy giá trị tháng từ input
+    const month = parseInt(document.getElementById("month").value);
 
-// Lấy thông tin nhập từ form
-const emailInput = document.getElementById('email');
-const passwordInput = document.getElementById('password');
-const loginEmailInput = document.getElementById('login-email');
-const loginPasswordInput = document.getElementById('login-password');
-
-// Hàm để lưu thông tin người dùng vào localStorage
-function saveUserData(email, password) {
-    let users = JSON.parse(localStorage.getItem('users')) || [];
-    users.push({ email, password });
-    localStorage.setItem('users', JSON.stringify(users));
-}
-
-// Hàm kiểm tra tài khoản đã tồn tại chưa
-function isUserExist(email) {
-    let users = JSON.parse(localStorage.getItem('users')) || [];
-    return users.some(user => user.email === email);
-}
-
-// Hàm kiểm tra thông tin đăng nhập
-function checkLogin(email, password) {
-    let users = JSON.parse(localStorage.getItem('users')) || [];
-    return users.some(user => user.email === email && user.password === password);
-}
-
-// Xử lý sự kiện đăng ký
-registerForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const email = emailInput.value;
-    const password = passwordInput.value;
-
-    // Kiểm tra tài khoản đã tồn tại chưa
-    if (isUserExist(email)) {
-        alert('Tài khoản đã tồn tại!');
-    } else if (password.length < 6 || password.length > 20) {
-        alert('Mật khẩu phải lớn hơn 6 ký tự và nhỏ hơn 20 ký tự!');
-    } else {
-        saveUserData(email, password);
-        alert('Đăng ký thành công!');
+    // Kiểm tra giá trị nhập vào
+    if (isNaN(month) || month < 1 || month > 12) {
+        document.getElementById("result").innerText = "Vui lòng nhập một tháng hợp lệ (1-12)!";
+        return;
     }
 
-    // Reset form
-    registerForm.reset();
-});
-
-// Xử lý sự kiện đăng nhập
-loginForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const email = loginEmailInput.value;
-    const password = loginPasswordInput.value;
-
-    // Kiểm tra thông tin đăng nhập
-    if (checkLogin(email, password)) {
-        alert('Đăng nhập thành công!');
-    } else {
-        alert('Tài khoản hoặc mật khẩu không đúng!');
+    let days;
+    // Sử dụng switch-case để xác định số ngày trong tháng
+    switch (month) {
+        case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+            days = 31;
+            break;
+        case 4: case 6: case 9: case 11:
+            days = 30;
+            break;
+        case 2:
+            days = "28 hoặc 29 (năm nhuận)";
+            break;
+        default:
+            days = "Không xác định";
     }
 
-    // Reset form
-    loginForm.reset();
-});
+    // Hiển thị kết quả
+    document.getElementById("result").innerText = `Tháng ${month} có ${days} ngày.`;
+}
